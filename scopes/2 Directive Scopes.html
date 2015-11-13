@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../base.css"/>
+    <title>Demo</title>
+    <script src="../bower_components/angular/angular.js"></script>
+    <script>
+        var app = angular.module('myApp', []).controller('MyController', function ($scope) {
+            $scope.message = 'Hello from MyController';
+            /*$scope.changeMessage = function () {
+                console.log($scope.message);
+            };*/
+
+            document.getElementById('mybutton').addEventListener('click', function () {
+                console.log('custom handler and is out of Angular Realm ... ');
+                $scope.$apply(function () {
+                    $scope.message = 'Changed the message which was originally - Hello from MyController';
+                });
+            });
+
+            // digest loop
+
+            $scope.$watch('message', function (old, newval) {
+                console.log(old, '||| new: ', newval);
+            });
+        });
+
+        app.directive('hello', function () {
+            return {
+                templateUrl: '_hello-directive.html',
+                scope: false,
+                link: function (scope, element) {
+                    element.on('click', function () {
+                        scope.message = 'Modified the scope from the directive.';
+                        console.log(scope.message);
+
+                    });
+                }
+            };
+        });
+    </script>
+</head>
+<body>
+    <div ng-controller="MyController">
+        {{message}}
+        <button id="mybutton">Change Message</button>
+        <div hello></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../base.css"/>
+    <title>Demo</title>
+    <script src="../bower_components/angular/angular.js"></script>
+    <script>
+        var app = angular.module('myApp', []).controller('MyController', function ($scope) {
+            $scope.message = 'Hello from MyController';
+        });
+
+        app.directive('hello', function () {
+            return {
+                // Directive Definition Object
+                templateUrl: '_hello-directive.html',
+                transclude: true
+            }
+        });
+    </script>
+</head>
+<body>
+
+
+
+    <div ng-controller="MyController">
+        {{message }}
+
+
+        <div hello>
+            <div>Manali Nirhali {{message}}</div>
+        </div>
+
+    </div>
+
+</body>
+</html>

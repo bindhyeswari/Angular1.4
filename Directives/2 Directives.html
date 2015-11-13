@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../base.css"/>
+    <title>Demo</title>
+    <script src="../bower_components/angular/angular.js"></script>
+    <script type="text/ng-template" id="_hello-directive.html">
+        <section class="hello">
+            <h2>Hello Directive</h2>
+            <div class="panel">Some information on the directive ... </div>
+        </section>
+    </script>
+    <script>
+        var app = angular.module('myApp', []).controller('MyController', function ($scope) {
+            $scope.message = 'Hello';
+        });
+
+        app.directive('hello', function () {
+            return {
+                // Directive Definition Object
+                restrict: 'A',
+                templateUrl: '_hello-directive.html'
+            }
+        });
+    </script>
+</head>
+<body>
+
+    <h1>Directive</h1>
+
+    <div hello></div>
+
+    <h1>MyController</h1>
+    <div ng-controller="MyController">
+        {{message}}
+    </div>
+</body>
+</html>

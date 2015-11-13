@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../base.css"/>
+    <title>Demo</title>
+    <script src="../bower_components/angular/angular.js"></script>
+    <script type="text/ng-template" id="_hello-directive.html">
+        <section class="hello">
+            <h2>Hello Directive</h2>
+            <div class="panel">Some information on the directive ... </div>
+            <div>
+                scope.message: {{msg}}
+                <input type="text" ng-model="msg"/>
+
+                <br/>
+                <input type="text" ng-model="data"/>scope.data = {{data}}
+            </div>
+        </section>
+    </script>
+    <script>
+        var app = angular.module('myApp', []).controller('MyController', function ($scope) {
+            $scope.message = 'Hello';
+            $scope.data = 'some data within MyController';
+        });
+
+        app.directive('hello', function () {
+            return {
+                templateUrl: '_hello-directive.html',
+                scope: {
+                    /*msg: '@info' // msg = value of the message property, literally!*/
+                    msg: '=info'
+                    // todo: &info - functions
+                }
+            };
+        });
+    </script>
+</head>
+<body>
+    <a href="https://docs.angularjs.org/api/ng/service/$compile#-scope-">Documentation on DDO</a>
+    <div ng-controller="MyController">
+        {{message}}
+        {{data}}
+        <br/>
+        <input type="text" ng-model="message"/>
+        <div hello info="message"></div>
+    </div>
+</body>
+</html>
